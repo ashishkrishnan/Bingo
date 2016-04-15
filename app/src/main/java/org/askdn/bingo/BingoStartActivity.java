@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Random;
 public class BingoStartActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
 
+    static boolean startGame = false;
     GridView mGridView;
     BingoAdapter mBingoAdapter;
     @Override
@@ -27,6 +29,17 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         }
         mBingoAdapter = new BingoAdapter(this, populate());
 
+        Button randomise_button = (Button) findViewById(R.id.randomise);
+        randomise_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                randomise(v);
+            }
+        });
+        startGame=true;
+        if(startGame)
+            randomise_button.setEnabled(false);
+
         Log.e("GridError",mBingoAdapter.toString());
         mGridView.setAdapter(mBingoAdapter);
         mGridView.setOnItemClickListener(this);
@@ -38,6 +51,10 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
 
     }
 
+    public void randomise(View view) {
+        mBingoAdapter = new BingoAdapter(this,populate());
+        mGridView.setAdapter(mBingoAdapter);
+    }
 
     //Helper function for generating Random Numbered buttons
     public List<BingoNumber> populate() {
