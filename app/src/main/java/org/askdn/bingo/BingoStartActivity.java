@@ -16,7 +16,7 @@ import java.util.Random;
 public class BingoStartActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener{
 
 
-    static boolean isPlaying = false;
+    public static boolean isPlaying = false;
     GridView mGridView;
     Button play_button, randomise_button;
     BingoAdapter mBingoAdapter;
@@ -26,7 +26,7 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_bingo_start);
 
         intialize();
-        mBingoAdapter = new BingoAdapter(this, populate());
+        mBingoAdapter = new BingoAdapter(this,populate());
         mGridView.setAdapter(mBingoAdapter);
         play_button.setOnClickListener(this);
         randomise_button.setOnClickListener(this);

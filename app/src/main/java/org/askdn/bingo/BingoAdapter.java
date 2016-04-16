@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-
+import static org.askdn.bingo.BingoStartActivity.isPlaying;
 import java.util.List;
 
 /**
  * Created by ashish on 13/4/16.
  */
 public class BingoAdapter extends ArrayAdapter<BingoNumber> {
-
 
     public BingoAdapter(Context context, List<BingoNumber> objects) {
         super(context, 0, objects);
@@ -34,20 +33,15 @@ public class BingoAdapter extends ArrayAdapter<BingoNumber> {
         btn.setFocusable(false);
         btn.setClickable(false);
         btn.setText(""+item.getNumber());
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn.setBackgroundColor(getContext().getColor(R.color.colorButton));
+                if (isPlaying) {
+                    btn.setBackgroundColor(getContext().getColor(R.color.colorButton));
+                }
             }
         });
-
-
         return view;
-
-
-
-
-
-
     }
 }
