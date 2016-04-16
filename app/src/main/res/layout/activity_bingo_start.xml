@@ -36,6 +36,15 @@
         android:clickable="true"
         android:id="@+id/randomise"
         android:textSize="20sp"
+        android:textAllCaps="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Play"
+        android:layout_marginBottom="20dp"
         android:textAllCaps="true"
-        android:src="@drawable/ic_shuffle"/>
+        android:textSize="20sp"
+        android:id="@+id/play"/>
 </LinearLayout>

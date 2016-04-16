@@ -29,9 +29,17 @@ public class BingoAdapter extends ArrayAdapter<BingoNumber> {
             view = LayoutInflater.from(
                     getContext()).inflate(R.layout.bingo_single_item, parent, false);
         }
-        Button btn = (Button) view.findViewById(R.id.btn);
+        final Button btn = (Button) view.findViewById(R.id.btn);
 
+        btn.setFocusable(false);
+        btn.setClickable(false);
         btn.setText(""+item.getNumber());
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn.setBackgroundColor(getContext().getColor(R.color.colorButton));
+            }
+        });
 
 
         return view;
