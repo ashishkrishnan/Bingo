@@ -3,11 +3,13 @@ package org.askdn.bingo;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +18,8 @@ import java.util.Random;
 public class BingoStartActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener{
 
 
+
+    TextView title;
     public static boolean isPlaying = false;
     GridView mGridView;
     Button play_button, randomise_button;
@@ -25,6 +29,7 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bingo_start);
 
+
         intialize();
         mBingoAdapter = new BingoAdapter(this,populate());
         mGridView.setAdapter(mBingoAdapter);
@@ -32,9 +37,13 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         randomise_button.setOnClickListener(this);
         mGridView.setOnItemClickListener(this);
 
+        String text = "<font color=#2ecc71>B</font>ingo";
+        title.setText(Html.fromHtml(text));
+
     }
     private void intialize() {
 
+        title = (TextView) findViewById(R.id.title);
         mGridView = (GridView) findViewById(R.id.grid);
         randomise_button = (Button) findViewById(R.id.randomise);
         play_button = (Button) findViewById(R.id.play);
