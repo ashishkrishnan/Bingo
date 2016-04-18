@@ -42,7 +42,7 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         play_button.setOnClickListener(this);
         randomise_button.setOnClickListener(this);
 
-        String text = "<font color=#2ecc71>Bi</font>ngo";
+        String text = "<font color=#2ecc71>B</font>ingo";
         title.setText(Html.fromHtml(text));
 
     }
@@ -79,17 +79,18 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View cView, int position, long id) {
 
         BingoNumber selectItem = (BingoNumber) parent.getItemAtPosition(position);
+        int valueToPosition = selectItem.getNumber();
+        Log.i("SelectItem",""+valueToPosition);
+        Log.i("Position",""+position);
+        //Mark it as used and disable the grid from further selection
+        leftoutGrids.remove(valueToPosition);
 
         View view = mGridView.getChildAt(position);
         view.setEnabled(false);
         view.setFocusable(false);
         view.setBackgroundColor(getColor(R.color.colorButton));
-
-        //Mark it as used and disable the grid from further selection
-        leftoutGrids.remove(position);
-
-        //Call the Computer
-        computerTurn();
+        //leftoutGrids.remove(position);
+        computerTurn(parent);
     }
 
     //Handler for the Randomize request
@@ -99,7 +100,7 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
 
         //Selecting the left out boxes.
         leftoutGrids = new HashMap<>();
-        for(int i=0;i<25;i++) {
+        for(int i=1;i<=25;i++) {
             leftoutGrids.put(i, i);
         }
     }
@@ -121,6 +122,8 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         List<BingoNumber> bingoList = Arrays.asList(randomNumArray);
         return bingoList;
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -144,14 +147,17 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         //Snackbar.make()
     }
 
-    void computerTurn() {
+    void computerTurn(AdapterView<?> parent) {
+
+
         Random generator = new Random();
         Object[] values = leftoutGrids.values().toArray();
         int randomValue = (Integer) values[generator.nextInt(values.length)];
-
+        temp = (BingoNumber) parent.getItemAtPosition(randomValue);
         final int numVisibleChildren = mGridView.getChildCount();
         final int firstVisiblePosition = mGridView.getFirstVisiblePosition();
 
+        Log.i("ComputerSelects",""+temp.getNumber());
         //Computer
         for ( int i = 0; i < numVisibleChildren; i++ ) {
             int positionOfView = firstVisiblePosition + i;
@@ -162,9 +168,12 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
                 view.setFocusable(false);
                 view.setBackgroundColor(getColor(R.color.colorButton));
                 leftoutGrids.remove(randomValue);
-                Log.i("After computer Turn ",leftoutGrids.values().toString());
+                break;
             }
-          }
+        }
+
+
+
 
         }
 
