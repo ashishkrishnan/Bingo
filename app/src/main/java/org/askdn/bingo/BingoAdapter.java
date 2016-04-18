@@ -40,8 +40,8 @@ public class BingoAdapter extends ArrayAdapter<BingoNumber> {
         }
         final TextView btn = (TextView) view.findViewById(R.id.btn);
 
-        //btn.setFocusable(false);
-        //btn.setClickable(false);
+        btn.setFocusable(false);
+        btn.setClickable(false);
         btn.setText(""+item.getNumber());
 
         currentGrid.put(item.getNumber(),position);
