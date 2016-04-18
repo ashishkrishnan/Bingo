@@ -79,9 +79,6 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View cView, int position, long id) {
 
         BingoNumber selectItem = (BingoNumber) parent.getItemAtPosition(position);
-        int valueToPosition = selectItem.getNumber();
-        Log.i("SelectItem",""+valueToPosition);
-        //Log.i("Position",""+position);
 
         View view = mGridView.getChildAt(position);
         view.setEnabled(false);
@@ -90,11 +87,9 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
 
         //Mark it as used and disable the grid from further selection
         leftoutGrids.remove(position);
-        Log.i("After user Plays",leftoutGrids.values().toString());
-
 
         //Call the Computer
-        computerTurn(parent);
+        computerTurn();
     }
 
     //Handler for the Randomize request
@@ -127,8 +122,6 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         return bingoList;
     }
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -151,19 +144,10 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         //Snackbar.make()
     }
 
-    void computerTurn(AdapterView<?> parent) {
-
-       // Log.i("Before Computer Turn",leftoutGrids.values().toString());
-
+    void computerTurn() {
         Random generator = new Random();
         Object[] values = leftoutGrids.values().toArray();
-
-        //Log.i("RandomObjects",""+values.toString());
-
         int randomValue = (Integer) values[generator.nextInt(values.length)];
-
-
-        //Log.i("RandomObjects",""+values.toString()+"CurrentRandom"+randomValue);
 
         final int numVisibleChildren = mGridView.getChildCount();
         final int firstVisiblePosition = mGridView.getFirstVisiblePosition();
@@ -180,10 +164,7 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
                 leftoutGrids.remove(randomValue);
                 Log.i("After computer Turn ",leftoutGrids.values().toString());
             }
-        }
-
-
-
+          }
 
         }
 
