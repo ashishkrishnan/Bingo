@@ -81,15 +81,19 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
         BingoNumber selectItem = (BingoNumber) parent.getItemAtPosition(position);
         int valueToPosition = selectItem.getNumber();
         Log.i("SelectItem",""+valueToPosition);
-        Log.i("Position",""+position);
-        //Mark it as used and disable the grid from further selection
-        leftoutGrids.remove(valueToPosition);
+        //Log.i("Position",""+position);
 
         View view = mGridView.getChildAt(position);
         view.setEnabled(false);
         view.setFocusable(false);
         view.setBackgroundColor(getColor(R.color.colorButton));
-        //leftoutGrids.remove(position);
+
+        //Mark it as used and disable the grid from further selection
+        leftoutGrids.remove(position);
+        Log.i("After user Plays",leftoutGrids.values().toString());
+
+
+        //Call the Computer
         computerTurn(parent);
     }
 
@@ -100,7 +104,7 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
 
         //Selecting the left out boxes.
         leftoutGrids = new HashMap<>();
-        for(int i=1;i<=25;i++) {
+        for(int i=0;i<25;i++) {
             leftoutGrids.put(i, i);
         }
     }
@@ -149,15 +153,21 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
 
     void computerTurn(AdapterView<?> parent) {
 
-
+        Log.i("Before Computer Turn",leftoutGrids.values().toString());
         Random generator = new Random();
         Object[] values = leftoutGrids.values().toArray();
+
+        Log.i("RandomObjects",""+values.toString());
+
         int randomValue = (Integer) values[generator.nextInt(values.length)];
-        temp = (BingoNumber) parent.getItemAtPosition(randomValue);
+
+
+        Log.i("RandomObjects",""+values.toString()+"CurrentRandom"+randomValue);
+
         final int numVisibleChildren = mGridView.getChildCount();
         final int firstVisiblePosition = mGridView.getFirstVisiblePosition();
 
-        Log.i("ComputerSelects",""+temp.getNumber());
+//        Log.i("ComputerSelects",""+temp.getNumber());
         //Computer
         for ( int i = 0; i < numVisibleChildren; i++ ) {
             int positionOfView = firstVisiblePosition + i;
@@ -168,7 +178,7 @@ public class BingoStartActivity extends AppCompatActivity implements AdapterView
                 view.setFocusable(false);
                 view.setBackgroundColor(getColor(R.color.colorButton));
                 leftoutGrids.remove(randomValue);
-                break;
+                Log.i("After computer Turn ",leftoutGrids.values().toString());
             }
         }
 
