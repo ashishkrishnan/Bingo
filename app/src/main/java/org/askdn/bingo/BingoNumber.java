@@ -6,14 +6,24 @@ package org.askdn.bingo;
 public class BingoNumber {
 
     int number;
+    boolean selected = false;
 
-    BingoNumber(int num) {
+    BingoNumber(int num, boolean selected) {
        this.number = num;
+        this.selected = true;
+    }
+
+    BingoNumber(int number) {
+        this.number = number;
     }
 
 
 
     public int getNumber() {
         return number;
+    }
+
+    public boolean isSelected() {
+        return selected;
     }
 }

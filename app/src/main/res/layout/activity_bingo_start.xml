@@ -48,4 +48,14 @@
         android:textAllCaps="true"
         android:textSize="20sp"
         android:id="@+id/play"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Reset"
+        android:layout_marginBottom="20dp"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:id="@+id/reset"/>
 </LinearLayout>
